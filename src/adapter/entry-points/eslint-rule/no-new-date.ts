@@ -34,25 +34,37 @@ const noNewDate: Rule.RuleModule = {
     return {
       NewExpression(node) {
         const { callee } = node;
+        const scope = context.sourceCode.getScope(node);
+
         if (callee.type === 'Identifier') {
           if (
             isDateConstructorName(callee.name) &&
-            !isUserDefinedInScopeChain('Date', context.getScope())
+            !isUserDefinedInScopeChain(callee.name, scope)
           ) {
             context.report({ node, messageId: 'noNewDate' });
           }
         } else if (
           callee.type === 'MemberExpression' &&
-          !callee.computed &&
-          callee.object.type === 'Identifier' &&
-          callee.property.type === 'Identifier' &&
-          isGlobalDateMemberExpression(
-            callee.object.name,
-            callee.property.name,
-          ) &&
-          !isUserDefinedInScopeChain(callee.object.name, context.getScope())
+          callee.object.type === 'Identifier'
         ) {
-          context.report({ node, messageId: 'noNewDate' });
+          const objectName = callee.object.name;
+          const prop = callee.property;
+          const propertyName =
+            !callee.computed && prop.type === 'Identifier'
+              ? prop.name
+              : callee.computed &&
+                  prop.type === 'Literal' &&
+                  typeof prop.value === 'string'
+                ? prop.value
+                : null;
+
+          if (
+            propertyName !== null &&
+            isGlobalDateMemberExpression(objectName, propertyName) &&
+            !isUserDefinedInScopeChain(objectName, scope)
+          ) {
+            context.report({ node, messageId: 'noNewDate' });
+          }
         }
       },
     };

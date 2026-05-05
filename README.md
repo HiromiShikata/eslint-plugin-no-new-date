@@ -45,7 +45,7 @@ Examples of correct code:
 ```typescript
 const timestamp = Date.now();
 const parsed = Date.parse('2024-01-01');
-function withShadowedDate(Date: typeof MyDateClass) {
+function withShadowedDate(Date: new () => object) {
   return new Date(); // not flagged — local Date shadows the global
 }
 ```

@@ -22,7 +22,15 @@ ruleTester.run('no-new-date', noNewDate, {
     },
     { code: 'function test(globalThis) { return new globalThis.Date(); }' },
     { code: 'function test(window) { return new window.Date(); }' },
+    {
+      code: 'function test(globalThis) { return new globalThis["Date"](); }',
+    },
     { code: 'const d = new foo.Date();' },
+    { code: 'const d = new globalThis["Math"]();' },
+    { code: 'const d = new globalThis[0]();' },
+    {
+      code: 'function getDate() { return Date; } const d = new (getDate())();',
+    },
   ],
   invalid: [
     {
@@ -47,6 +55,14 @@ ruleTester.run('no-new-date', noNewDate, {
     },
     {
       code: 'const d = new window.Date();',
+      errors: [{ messageId: 'noNewDate' }],
+    },
+    {
+      code: 'const d = new globalThis["Date"]();',
+      errors: [{ messageId: 'noNewDate' }],
+    },
+    {
+      code: 'const d = new window["Date"]();',
       errors: [{ messageId: 'noNewDate' }],
     },
     {
