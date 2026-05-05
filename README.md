@@ -36,6 +36,8 @@ Examples of incorrect code:
 const now = new Date();
 const specific = new Date('2024-01-01');
 const fromArgs = new Date(2024, 0, 1);
+const viaGlobal = new globalThis.Date();
+const viaWindow = new window.Date();
 ```
 
 Examples of correct code:
@@ -43,4 +45,7 @@ Examples of correct code:
 ```typescript
 const timestamp = Date.now();
 const parsed = Date.parse('2024-01-01');
+function withShadowedDate(Date: typeof MyDateClass) {
+  return new Date(); // not flagged — local Date shadows the global
+}
 ```
