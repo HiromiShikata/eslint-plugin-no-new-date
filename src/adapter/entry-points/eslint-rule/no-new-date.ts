@@ -2,11 +2,15 @@ import type { Rule, Scope } from 'eslint';
 import { isDateConstructorName } from '../../../domain/usecases/NewDateCalleeNameCheckUseCase';
 import { isGlobalDateMemberExpression } from '../../../domain/usecases/NewDateGlobalMemberExpressionCheckUseCase';
 
-const isDateShadowedInScope = (scope: Scope.Scope): boolean => {
+const isUserDefinedInScopeChain = (
+  name: string,
+  scope: Scope.Scope,
+): boolean => {
   let currentScope: Scope.Scope | null = scope;
-  while (currentScope !== null && currentScope.type !== 'global') {
-    if (currentScope.variables.some((v) => v.name === 'Date')) {
-      return true;
+  while (currentScope !== null) {
+    const variable = currentScope.variables.find((v) => v.name === name);
+    if (variable !== undefined) {
+      return variable.defs.length > 0;
     }
     currentScope = currentScope.upper;
   }
@@ -33,7 +37,7 @@ const noNewDate: Rule.RuleModule = {
         if (callee.type === 'Identifier') {
           if (
             isDateConstructorName(callee.name) &&
-            !isDateShadowedInScope(context.getScope())
+            !isUserDefinedInScopeChain('Date', context.getScope())
           ) {
             context.report({ node, messageId: 'noNewDate' });
           }
@@ -42,7 +46,11 @@ const noNewDate: Rule.RuleModule = {
           !callee.computed &&
           callee.object.type === 'Identifier' &&
           callee.property.type === 'Identifier' &&
-          isGlobalDateMemberExpression(callee.object.name, callee.property.name)
+          isGlobalDateMemberExpression(
+            callee.object.name,
+            callee.property.name,
+          ) &&
+          !isUserDefinedInScopeChain(callee.object.name, context.getScope())
         ) {
           context.report({ node, messageId: 'noNewDate' });
         }

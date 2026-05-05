@@ -16,6 +16,12 @@ ruleTester.run('no-new-date', noNewDate, {
     { code: 'const d = new DateTime();' },
     { code: 'function test(Date) { return new Date(); }' },
     { code: 'const Date = class {}; const d = new Date();' },
+    {
+      code: 'const Date = class {}; const d = new Date();',
+      parserOptions: { ecmaVersion: 2020, sourceType: 'script' },
+    },
+    { code: 'function test(globalThis) { return new globalThis.Date(); }' },
+    { code: 'function test(window) { return new window.Date(); }' },
     { code: 'const d = new foo.Date();' },
   ],
   invalid: [
@@ -41,6 +47,11 @@ ruleTester.run('no-new-date', noNewDate, {
     },
     {
       code: 'const d = new window.Date();',
+      errors: [{ messageId: 'noNewDate' }],
+    },
+    {
+      code: 'const d = new Date();',
+      parserOptions: { ecmaVersion: 2020, sourceType: 'script' },
       errors: [{ messageId: 'noNewDate' }],
     },
   ],
