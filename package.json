@@ -1,12 +1,9 @@
 {
-  "name": "template-typescript",
+  "name": "eslint-plugin-no-new-date",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "ESLint plugin that disallows the use of new Date() to enforce timezone-aware date handling",
+  "main": "dist/index.js",
   "scripts": {
-    "prebuild": "npm run doctor",
-    "doctor:node-version": "check-node-version --node 20 --npx 10 --npm 10",
-    "doctor": "npm run doctor:node-version",
     "prettier": "prettier --write '**/*'",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
@@ -16,13 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HiromiShikata/template-typescript.git"
+    "url": "git+https://github.com/HiromiShikata/eslint-plugin-no-new-date.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "no-new-date",
+    "date",
+    "timezone"
+  ],
+  "author": "HiromiShikata",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HiromiShikata/template-typescript/issues"
+    "url": "https://github.com/HiromiShikata/eslint-plugin-no-new-date/issues"
   },
   "release": {
     "plugins": [
@@ -35,11 +39,15 @@
       "main"
     ]
   },
-  "homepage": "https://github.com/HiromiShikata/template-typescript#readme",
+  "homepage": "https://github.com/HiromiShikata/eslint-plugin-no-new-date#readme",
+  "peerDependencies": {
+    "eslint": ">=8.0.0"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/git": "^10.0.1",
+    "@types/eslint": "^8.56.0",
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
@@ -57,8 +65,5 @@
     "semantic-release": "^25.0.0",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
-  },
-  "dependencies": {
-    "dotenv": "^16.3.1"
   }
 }
