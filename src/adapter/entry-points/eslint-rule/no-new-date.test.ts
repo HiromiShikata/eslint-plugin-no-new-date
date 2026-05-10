@@ -2,7 +2,7 @@ import { RuleTester } from 'eslint';
 import noNewDate from './no-new-date';
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
@@ -18,7 +18,7 @@ ruleTester.run('no-new-date', noNewDate, {
     { code: 'const Date = class {}; const d = new Date();' },
     {
       code: 'const Date = class {}; const d = new Date();',
-      parserOptions: { ecmaVersion: 2020, sourceType: 'script' },
+      languageOptions: { ecmaVersion: 2020, sourceType: 'script' },
     },
     { code: 'function test(globalThis) { return new globalThis.Date(); }' },
     { code: 'function test(window) { return new window.Date(); }' },
@@ -67,7 +67,7 @@ ruleTester.run('no-new-date', noNewDate, {
     },
     {
       code: 'const d = new Date();',
-      parserOptions: { ecmaVersion: 2020, sourceType: 'script' },
+      languageOptions: { ecmaVersion: 2020, sourceType: 'script' },
       errors: [{ messageId: 'noNewDate' }],
     },
   ],
