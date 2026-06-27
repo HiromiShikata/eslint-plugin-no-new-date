@@ -1,7 +1,7 @@
 const fs = require('fs');
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
-const importPlugin = require('eslint-plugin-import');
+const importPlugin = require('eslint-plugin-import-x');
 const unusedImportsPlugin = require('eslint-plugin-unused-imports');
 
 const gitignorePatterns = fs
@@ -38,7 +38,7 @@ module.exports = [
         'error',
         { argsIgnorePattern: '^_' },
       ],
-      'import/no-restricted-paths': [
+      'import-x/no-restricted-paths': [
         'error',
         {
           zones: [
