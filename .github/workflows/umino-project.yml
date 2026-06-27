@@ -2,6 +2,7 @@
 # This file is auto-synchronized from HiromiShikata/repositories-management.
 # Direct edits in downstream repositories will be overwritten by the next sync.
 # Update the source file in HiromiShikata/repositories-management instead.
+# NOTE: Dependabot actor skip conditions below are tracked in https://github.com/HiromiShikata/secretary/issues/2020
 
 name: UMINO Project
 
