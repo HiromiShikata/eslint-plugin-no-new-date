@@ -1,12 +1,11 @@
-import type { Rule, Scope } from 'eslint';
 import { isDateConstructorName } from '../../../domain/usecases/NewDateCalleeNameCheckUseCase';
 import { isGlobalDateMemberExpression } from '../../../domain/usecases/NewDateGlobalMemberExpressionCheckUseCase';
 
 const isUserDefinedInScopeChain = (
   name: string,
-  scope: Scope.Scope,
+  scope: import('eslint').Scope.Scope,
 ): boolean => {
-  let currentScope: Scope.Scope | null = scope;
+  let currentScope: import('eslint').Scope.Scope | null = scope;
   while (currentScope !== null) {
     const variable = currentScope.variables.find((v) => v.name === name);
     if (variable !== undefined) {
@@ -17,7 +16,7 @@ const isUserDefinedInScopeChain = (
   return false;
 };
 
-const noNewDate: Rule.RuleModule = {
+const noNewDate: import('eslint').Rule.RuleModule = {
   meta: {
     type: 'problem',
     docs: {
@@ -30,7 +29,7 @@ const noNewDate: Rule.RuleModule = {
     },
     schema: [],
   },
-  create(context: Rule.RuleContext) {
+  create(context: import('eslint').Rule.RuleContext) {
     return {
       NewExpression(node) {
         const { callee } = node;
