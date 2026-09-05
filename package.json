@@ -4,7 +4,7 @@
   "description": "ESLint plugin that disallows the use of new Date() to enforce timezone-aware date handling",
   "main": "dist/index.js",
   "scripts": {
-    "prettier": "prettier --write '**/*'",
+    "prettier": "prettier --ignore-unknown --write '**/*'",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "fmt": "npm run prettier && npm run lint-fix",
