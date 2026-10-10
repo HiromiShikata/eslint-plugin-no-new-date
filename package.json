@@ -67,5 +67,8 @@
     "prettier": "^3.9.5",
     "semantic-release": "^25.0.8",
     "typescript": "^7.0.2"
+  },
+  "overrides": {
+    "handlebars": "^4.7.10"
   }
 }
