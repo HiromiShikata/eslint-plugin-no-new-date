@@ -69,6 +69,7 @@
     "typescript": "^7.0.2"
   },
   "overrides": {
-    "handlebars": "^4.7.10"
+    "handlebars": "^4.7.10",
+    "npm": "^11.21.0"
   }
 }
