@@ -20,15 +20,16 @@ const packageManifestFileName = 'package.json';
 const packageLockfileFileName = 'package-lock.json';
 
 const devDependencyMinimumVersionCases: DevDependencyMinimumVersionCase[] = [
-  { packageName: '@babel/core', minimumVersion: '8.0.7' },
-  { packageName: '@babel/eslint-parser', minimumVersion: '8.0.7' },
+  { packageName: '@babel/core', minimumVersion: '8.1.2' },
+  { packageName: '@babel/eslint-parser', minimumVersion: '8.1.2' },
   { packageName: '@babel/preset-typescript', minimumVersion: '8.0.7' },
   { packageName: '@swc/core', minimumVersion: '1.16.18' },
   {
     packageName: 'conventional-changelog-conventionalcommits',
     minimumVersion: '10.4.1',
   },
-  { packageName: 'prettier', minimumVersion: '3.9.10' },
+  { packageName: 'eslint', minimumVersion: '10.15.0' },
+  { packageName: 'prettier', minimumVersion: '3.10.1' },
 ];
 
 const versionTextNormalize = (value: unknown): string | null =>
