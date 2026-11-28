@@ -70,6 +70,10 @@
   },
   "overrides": {
     "handlebars": "^4.7.10",
-    "npm": "^11.21.2"
+    "npm": "^11.21.2",
+    "minimatch": "^11.0.5",
+    "test-exclude": {
+      "glob": "^13.0.6"
+    }
   }
 }
